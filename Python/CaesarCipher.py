@@ -32,7 +32,7 @@ def main():
     encryptedTxt = encrypt(originalTxt, shift)
 
     print("Plain Text : " + originalTxt)
-    print("Shift pattern : " + str(shift))
+    print("Shift pattern : " + shift)
     print("Cipher: " + encryptedTxt)
 
 
@@ -44,10 +44,10 @@ def encrypt(text,s):
         # Encrypt uppercase characters in plain text
         
         if (char.isupper()):
-            result += chr((ord(char) + s-65) % 26 + 65)
+            result += chr((ord(char) + int(s)-65) % 26 + 65)
         # Encrypt lowercase characters in plain text
         else:
-            result += chr((ord(char) + s - 97) % 26 + 97)
+            result += chr((ord(char) + int(s) - 97) % 26 + 97)
     return result
 
 
