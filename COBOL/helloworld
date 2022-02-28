@@ -1,9 +1,0 @@
-* https://www.thegeekstuff.com/2010/02/cobol-hello-world-example-how-to-write-compile-and-execute-cobol-program-on-linux-os/
-* cd ../COBOL
-* ./helloworld-exe
-
-IDENTIFICATION DIVISION.
-PROGRAM-ID. HELLO-WORLD.
-PROCEDURE DIVISION.
-    DISPLAY 'Hello world!'.
-    STOP RUN.
