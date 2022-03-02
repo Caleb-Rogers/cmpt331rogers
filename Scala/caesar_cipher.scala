@@ -1,41 +1,19 @@
-object CaesarCipher 
-{
-    // Main Method 
-    def main(args: Array[String]): Unit = {
-        val cipherStr = "DUDE"
-        val originalStr = cipherStr
-        val shift = 4
-
-        val ciphered = CaesarCipher.encrypt(cipherStr, 10)
-        println("Decrypted Cipher Value: " + ciphered)
-
-        val de_ciphered = CaesarCipher.decrypt(ciphered, 10)
-        println("Encrypted Cipher Value: " + de_ciphered)
-
-        CaesarCipher.solve(cipherStr, shift)
-    }
-
-
+object CaesarCipher {
     def encrypt(toCipher: String, shift: Int): String = {
-        val newShift = shift % 26
-        val charArray = toCipher.toUpperCase().toCharArray()
-        val ciphered: String = ""
-
-        for (i <- charArray) {
-            if (i.toInt == 32) {
-                ciphered += " ";
-            }
-            else {
-                var temp = (i.toInt - 65 + shift) % 26
-                if (temp < 0) {
-                    temp += 26
-                }
-                ciphered += (temp + 65).toChar
-            }
-        }
-
-        return ciphered
-    }
+		var ciphered: String = "";
+		var i: Int = 0;
+		
+		while (i < toCipher.length()) {
+			if (toCipher.charAt(i) >= 'A' && toCipher.charAt(i) <= 'Z') {
+				ciphered = ciphered + (((toCipher.charAt(i).toInt + shift - 65) % 26).toInt + 65).toChar.toString();
+			}
+			else {
+				ciphered = ciphered + (((toCipher.charAt(i).toInt + shift - 97) % 26).toInt + 97).toChar.toString();
+			}
+			i += 1;
+		}
+		return ciphered;
+	}
 
 
     def decrypt(ciphered: String, shift: Int): String = {
@@ -47,5 +25,25 @@ object CaesarCipher
         for(i <- 0 to maxShift) {
             println("Caesar " + i + ": " + encrypt(cipherStr, i))
         }
+    }
+    
+    def main(args: Array[String]): Unit = {
+        
+        // Initialization
+        var cipherStr = "Dude Wheres My Car"
+        var shift = 4
+        
+        println("Welcome to Caesar Ciphers with Scala!")
+        
+        // Call Caesar Cipher Encryption Method
+        var ciphered = encrypt(cipherStr, 10)
+        println("Encrypted Cipher Value: " + ciphered)
+  
+        // Call Caesar Cipher Decryption Method
+        var deciphered = decrypt(ciphered, 10)
+        println("Decrypted Cipher Value: " + deciphered)
+      
+        // Call Caesar Cipher Solve Method
+        solve("DUDE", 26)
     }
 }

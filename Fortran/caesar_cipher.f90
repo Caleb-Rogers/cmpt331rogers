@@ -3,7 +3,7 @@ program Caesar_Cipher
  
   ! Initialization
   character(43) :: cipherStr = "Dude Wheres My Car"
-  integer, parameter :: shift = 4  
+  integer :: shift = 4  
  
   write(*, "(2a)") "Welcome to Caesar Ciphers with Fortran!"
   
