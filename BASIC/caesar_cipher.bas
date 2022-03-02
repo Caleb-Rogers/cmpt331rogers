@@ -1,56 +1,62 @@
-Declare Function encrypt(toCipher As String, shift As Integer)
-Declare Function decrypt(ciphered As String, shift As Integer)
-Declare Function solve(cipherStr As String)
+Sub Encrypt(toCipher As String, shift As Integer)
+  Dim temp As Integer
+  For i As Integer = 0 To Len(toCipher) 
+    Select Case As Const toCipher[i] 
+      Case 65 To 90    
+        temp = toCipher[i] + shift
+        If temp > 90 Then temp -= 26
+        toCipher[i] = temp
+      Case 97 To 122
+        temp = toCipher[i] + shift
+        If temp > 122 Then temp -= 26
+        toCipher[i] = temp
+    End Select
+  Next
+End Sub
 
+
+Sub Decrypt(ciphered As String, shift As Integer)
+  Dim temp As Integer
+  For i As Integer = 0 To Len(ciphered) 
+    Select Case As Const ciphered[i] 
+      Case 65 To 90    
+        temp = ciphered[i] + shift
+        If temp > 90 Then temp -= 26
+        ciphered[i] = temp
+      Case 97 To 122
+        temp = ciphered[i] + shift
+        If temp > 122 Then temp -= 26
+        ciphered[i] = temp
+    End Select
+  Next
+End Sub
+
+
+Sub Solve(cipherStr As String)
+    For i As Integer = 0 To 25
+        encrypt(cipherStr, i)
+        Print "Ceasar " ; i ; ": " ; cipherStr
+    Next
+End Sub
+
+
+'' Basically Main ''
 Cls
-Dim toCipher As String
-Dim shift As Integer
-Dim ciphered As String
-Dim cipherStr As String
-toCipher = "DUDE"
-shift = 4
+' Initialization
+Dim cipherStr As String = "Dude Wheres My Car"
+Dim shift As Integer = 4
 
-ciphered = encrypt(toCipher, shift)
-Print "Encrypted Cipher Value: " ; ciphered
-
-cipherStr = decrypt(ciphered, shift)
-Print "Decrypted Cipher Value: " ; cipherStr
-
-solve(cipherStr)
+Print "Welcome to Caesar Ciphers with BASIC!"
+  
+' Call Caesar Cipher Encryption Method
+Encrypt cipherStr, shift
+Print "Encrypted Cipher Value: "; cipherStr
+  
+' Call Caesar Cipher Decryption Method
+Decrypt cipherStr, shift
+Print "Decrypted Cipher Value: "; cipherStr
+  
+' Call Caesar Cipher Solve Method
+Solve "DUDE"
 
 Sleep
-End
-
-
-Function encrypt(toCipher As String, shift As Integer)
-    Dim temp As Integer
-
-    For i As Integer = 0 To Len(toCipher)
-        Select Case As Const toCipher[i]
-            Case 65 To 90
-                temp = toCipher[i] + shift
-                If temp > 90 Then temp -= 26
-                    toCipher[i] = temp
-            Case 97 to 122
-                temp = text[i] + shift
-                If temp > 122 Then temp -= 26
-                    toCipher[i] = temp
-        End Select
-    Next
-
-    return toCipher
-End Function
-
-
-Function decrypt(ciphered As String, shift As Integer)
-    return encrypt(ciphered, shift)
-End Function
-
-
-Function solve(cipherStr As String)
-    Dim ciphered As String
-    For i As Integer = 0 to 25
-        ciphered = encrypt(cipherStr, shift)
-        Print "Ceasar " ; i ; ": " ; encrypt(cipherStr, i)
-    Next
-End Function
