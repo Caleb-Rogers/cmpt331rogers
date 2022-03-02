@@ -1,16 +1,14 @@
 object CaesarCipher {
     def encrypt(toCipher: String, shift: Int): String = {
 		var ciphered: String = "";
-		var i: Int = 0;
 		
-		while (i < toCipher.length()) {
+        for(i <- 0 to (toCipher.length() - 1)) {
 			if (toCipher.charAt(i) >= 'A' && toCipher.charAt(i) <= 'Z') {
 				ciphered = ciphered + (((toCipher.charAt(i).toInt + shift - 65) % 26).toInt + 65).toChar.toString();
 			}
 			else {
 				ciphered = ciphered + (((toCipher.charAt(i).toInt + shift - 97) % 26).toInt + 97).toChar.toString();
 			}
-			i += 1;
 		}
 		return ciphered;
 	}
@@ -21,8 +19,8 @@ object CaesarCipher {
     }
 
 
-    def solve(cipherStr: String, maxShift: Int): Unit = {
-        for(i <- 0 to maxShift) {
+    def solve(cipherStr: String, loop: Int): Unit = {
+        for(i <- 0 to loop) {
             println("Caesar " + i + ": " + encrypt(cipherStr, i))
         }
     }

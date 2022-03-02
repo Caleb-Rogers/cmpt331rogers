@@ -50,14 +50,14 @@ subroutine decrypt(ciphered, shift)
 end subroutine
 
 
-subroutine solve(cipher, shiftLoop)
+subroutine solve(cipher, loop)
   implicit none
   character(4) :: cipher
-  integer :: shiftLoop
+  integer :: loop
   character(4) :: newCiphered
   integer :: i
   
-  do i = 0, shiftLoop
+  do i = 0, loop
     newCiphered = cipher
     call encrypt(newCiphered, i)
     write(*, *) "Caesar ", i, ": ", newCiphered
