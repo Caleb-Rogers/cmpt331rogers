@@ -33,7 +33,7 @@ End Sub
 
 
 Sub Solve(cipherStr As String)
-    For i As Integer = 0 To 25
+    For i As Integer = 1 To 26
         encrypt(cipherStr, i)
         Print "Ceasar " ; i ; ": " ; cipherStr
     Next
