@@ -22,7 +22,8 @@ contains
 
  
 subroutine encrypt(toCipher, shift)
-  character :: toCipher
+  implicit none
+  character(*), intent(inout) :: toCipher
   integer :: shift
   integer :: i
  
@@ -34,13 +35,12 @@ subroutine encrypt(toCipher, shift)
         toCipher(i:i) = achar(modulo(iachar(toCipher(i:i)) - 97 + shift, 26) + 97)
     end select
   end do
-  
 end subroutine
  
  
 subroutine decrypt(ciphered, shift)
   implicit none
-  character :: ciphered
+  character(*), intent(inout) :: ciphered
   integer :: shift
   integer :: reverse
   
