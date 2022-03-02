@@ -1,7 +1,7 @@
-program Hello;
+program CaesarCipher(output);
+
   var cipherStr: String;
   var shift : Integer;
-
 
 function encrypt(toCipher: String; shift:Integer): String;
   var
@@ -47,14 +47,22 @@ procedure solve(cipher: String; shift: Integer);
   end;
 
 
+// basically main
 begin
-  cipherStr := 'DUDE';
+  // Initialization
+  cipherStr := 'Dude Wheres My Car';
+  shift := 4;
 
-  cipherStr := encrypt(cipherStr, 4);
+  Writeln('Welcome to Caesar Ciphers with Pascal!');
+  
+  // Call Caesar Cipher Encryption Method
+  cipherStr := encrypt(cipherStr, shift);
   Writeln('Encrypted Cipher Value: ' + cipherStr);
-
-  cipherStr := decrypt(cipherStr, 4);
+  
+  // Call Caesar Cipher Decryption Method
+  cipherStr := decrypt(cipherStr, shift);
   Writeln('Decrypted Cipher Value: ' + cipherStr);
-
-  solve(cipherStr, 26);
+  
+  // Call Caesar Cipher Solve Method
+  solve('DUDE', 26);
 end.
