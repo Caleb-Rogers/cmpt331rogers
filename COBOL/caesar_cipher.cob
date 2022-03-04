@@ -4,50 +4,60 @@ AUTHOR. CALEB ROGERS.
 
 ENVIRONMENT DIVISION.
 
-WORKING-STORAGE SECTION.
 DATA DIVISION.
-    01 cipherStr PIC x(50) VALUE "Dude Wheres My Car".
-    01 shift PIC 9(4) VALUE 4.
-    01 loop PIC 9(8) VALUE 26.
-
-    01  plaintext                 PIC X(50).
-    01  offset                    PIC 99.
-    01  encrypted-str             PIC X(50).
-
-    01  i                         PIC 9(3).
-    01 temp PIC x(50).
+WORKING-STORAGE SECTION.
+    01 cipherStr      PIC x(50).
+    01 shift          PIC 9(4) VALUE 4.
+    01 loop           PIC 9(8) VALUE 26.
+    01 negativeShift  PIC 9(4) VALUE 4.
+    01 temp           PIC x(50).
+    01 i              PIC 9(3).
+    01 a              PIC 9(3).
+    01 chars          PIC 9(1).
 
 
 PROCEDURE DIVISION.
 Begin.
+    MOVE "Dude Wheres My Car" TO cipherStr
+    
+    DISPLAY "Welcome to Caesar Ciphers with COBOL!"
+
     PERFORM Encrypt.
+    DISPLAY "Encrypted Cipher Value: " cipherStr
+
     PERFORM Decrypt.
-    PERFORM Solve UNTIL Counter = 26.
+    DISPLAY "Decrypted Cipher Value: " cipherStr
     STOP RUN.
 
 
 Encrypt.
-    MOVE cipherStr TO temp
+    MOVE Function Upper-case(cipherStr) to cipherStr
     PERFORM VARYING i FROM 1 BY 1 UNTIL i > FUNCTION LENGTH(cipherStr)
-       IF temp (i:1) IS ALPHABETIC-UPPER
-           MOVE FUNCTION ORD("A") TO a
-       ELSE   
-           MOVE FUNCTION ORD("a") TO a
-       END-IF
-
-       MOVE FUNCTION CHAR(FUNCTION MOD(FUNCTION ORD(temp(i:1)) - a + shift, 26) 
-           TO temp (i:1)
-
-       MOVE temp to cipherStr
-    END-PERFORM.
+       IF cipherStr IS NOT EQUAL TO SPACE
+           MOVE cipherStr (i:1) to chars
+           IF (FUNCTION ORD(chars) + shift) <= FUNCTION ORD("Z")
+                   MOVE FUNCTION CHAR(FUNCTION ORD(chars) + chars) to cipherStr 
+               ELSE
+                   MOVE FUNCTION CHAR(FUNCTION ORD("A") 
+                   + ((FUNCTION ORD(chars) + shift) - 1) - FUNCTION ORD("Z")) to
+		       END-IF
+		    END-IF
+		END-PERFORM
+    STOP RUN.
 
 
 Decrypt.
-    SUBTRACT 26 FROM shift GIVING 
-
-
-Solve.
-    ADD 1 TO Counter;
-    ADD 1 TO offset;
-    PERFORM Encrypt.
+    SUBTRACT 26 FROM shift GIVING negativeShift
+    MOVE Function Upper-case(cipherStr) to cipherStr
+    PERFORM VARYING i FROM 1 BY 1 UNTIL i > FUNCTION LENGTH(cipherStr)
+       IF cipherStr IS NOT EQUAL TO SPACE
+           MOVE cipherStr (i:1) to chars
+           IF (FUNCTION ORD(chars) + negativeShift) <= FUNCTION ORD("Z")
+                   MOVE FUNCTION CHAR(FUNCTION ORD(chars) + chars) to cipherStr 
+               ELSE
+                   MOVE FUNCTION CHAR(FUNCTION ORD("A") 
+                   + ((FUNCTION ORD(chars) + negativeShift) - 1) - FUNCTION ORD(
+		       END-IF
+		    END-IF
+		END-PERFORM
     STOP RUN.
