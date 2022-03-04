@@ -29,8 +29,10 @@ subroutine encrypt(toCipher, shift)
  
   do i = 1, len(toCipher)
     select case(toCipher(i:i))
+      ! Account for uppercase letters
       case ('A':'Z')
         toCipher(i:i) = achar(modulo(iachar(toCipher(i:i)) - 65 + shift, 26) + 65)
+      ! Account for lowercase letters
       case ('a':'z')
         toCipher(i:i) = achar(modulo(iachar(toCipher(i:i)) - 97 + shift, 26) + 97)
     end select
