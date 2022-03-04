@@ -4,78 +4,50 @@ AUTHOR. CALEB ROGERS.
 
 ENVIRONMENT DIVISION.
 
-DATA DIVISION.
 WORKING-STORAGE SECTION.
-    01 cipherStr PIC x(4).
-    01 originalStr PIC x(4).
-    01 ciphered PIC x(4).
-    01 shift PIC 99.
-    01 counter PIC 99.
-    01 i PIC 9(3).
-    01 c PIC x(1).
+DATA DIVISION.
+    01 cipherStr PIC x(50) VALUE "Dude Wheres My Car".
+    01 shift PIC 9(4) VALUE 4.
+    01 loop PIC 9(8) VALUE 26.
+
+    01  plaintext                 PIC X(50).
+    01  offset                    PIC 99.
+    01  encrypted-str             PIC X(50).
+
+    01  i                         PIC 9(3).
+    01 temp PIC x(50).
 
 
 PROCEDURE DIVISION.
 Begin.
-    SET cipherStr TO "DUDE";
-    SET originalStr TO cipherStr;
-    SET shift TO 4;
-
-    DISPLAY FUNCTION CONCATENATE("Decrypted Cipher Value: " cipherStr)
     PERFORM Encrypt.
-    SET ciphered TO cipherStr;
     PERFORM Decrypt.
-
-    SET counter TO 0;
-    SET shift TO 0;
-    DISPLAY "Solve:"
-    PERFORM Solve UNTIL counter = 26.
-
+    PERFORM Solve UNTIL Counter = 26.
     STOP RUN.
 
 
 Encrypt.
-    MOVE Function Upper-case(originalStr) TO originalStr
-    IF shift >= 26
-        MOVE FUNCTION MOD(shift, 26) TO shift
-    END-IF
+    MOVE cipherStr TO temp
+    PERFORM VARYING i FROM 1 BY 1 UNTIL i > FUNCTION LENGTH(cipherStr)
+       IF temp (i:1) IS ALPHABETIC-UPPER
+           MOVE FUNCTION ORD("A") TO a
+       ELSE   
+           MOVE FUNCTION ORD("a") TO a
+       END-IF
 
-    PERFORM Varying i FROM 1 BY 1 UNTIL > FUNCTION LENGTH(originalStr)
-        IF originalTxt(i:1) IS NOT EQUAL TO SPACE
-            MOVE originalStr(i:1) TO c
-            IF (FUNCTION ORD(c) + shift) <= FUNCTION ORD("Z")
-                MOVE FUNCTION CHAR(FUNCTION ORD(c) + shift) TO cipherStr(i:1)
-            ELSE
-                MOVE FUNCTION CHAR(FUNCTION ORD("A") + ((FUNCTION ORD(c) + shift) - 1) - FUNCTION ORD("Z")) to cipherStr(i:1)
-            END-IF
-        END_IF
-    END-PERFORM
+       MOVE FUNCTION CHAR(FUNCTION MOD(FUNCTION ORD(temp(i:1)) - a + shift, 26) 
+           TO temp (i:1)
 
-    DISPLAY FUNCTION CONCATENATE("Encrypted Cipher Value: " cipherStr).
+       MOVE temp to cipherStr
+    END-PERFORM.
 
 
 Decrypt.
-    MOVE Function Upper-case(cipherStr) TO cipherStr
-    IF shift >= 26
-        MOVE FUNCTION MOD(shift, 26) TO shift
-    END-IF
-
-    PERFORM Varying i FROM 1 BY 1 UNTIL > FUNCTION LENGTH(originalStr)
-        IF originalTxt(i:1) IS NOT EQUAL TO SPACE
-            MOVE originalStr(i:1) TO c
-            IF (FUNCTION ORD(c) + shift) <= FUNCTION ORD("Z")
-                MOVE FUNCTION CHAR(FUNCTION ORD(c) + shift) TO cipherStr(i:1)
-            ELSE
-                MOVE FUNCTION CHAR(FUNCTION ORD("A") + ((FUNCTION ORD(c) + shift) - 1) - FUNCTION ORD("Z")) to cipherStr(i:1)
-            END-IF
-        END_IF
-    END-PERFORM
-
-    DISPLAY FUNCTION CONCATENATE("Decrypted Cipher Value: " cipherStr).
+    SUBTRACT 26 FROM shift GIVING 
 
 
 Solve.
-    ADD 1 counter;
-    ADD 1 to shift;
+    ADD 1 TO Counter;
+    ADD 1 TO offset;
     PERFORM Encrypt.
     STOP RUN.
