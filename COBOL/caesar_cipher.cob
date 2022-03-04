@@ -27,7 +27,7 @@ Begin.
     DISPLAY "Encrypted Cipher Value: " ciphered
 
     PERFORM Decrypt.
-    DISPLAY "Decrypted Cipher Value: " ciphered
+    DISPLAY "Decrypted Cipher Value: " deciphered
     STOP RUN.
 
 
@@ -42,10 +42,12 @@ Encrypt.
 	     IF cipherStr(i:1) IS NOT EQUAL TO SPACE
 				MOVE cipherStr (i:1) to chars
 				IF (FUNCTION ORD(chars) + shift) <= FUNCTION ORD("Z")
-					MOVE FUNCTION CHAR(FUNCTION ORD(chars) + shift) to ciphered (i:1)
+					MOVE FUNCTION CHAR(FUNCTION ORD(chars) + shift) 
+                    to ciphered (i:1)
 				ELSE
 					MOVE FUNCTION CHAR(FUNCTION ORD("A") 
-					+ ((FUNCTION ORD(chars) + shift) - 1) - FUNCTION ORD("Z")) to ciphered (i:1
+					+ ((FUNCTION ORD(chars) + shift) - 1) - 
+                    FUNCTION ORD("Z")) to ciphered (i:1)
 				END-IF
 			END-IF
 		END-PERFORM
@@ -61,12 +63,14 @@ Decrypt.
 		
     PERFORM VARYING i FROM 1 BY 1 UNTIL i > FUNCTION LENGTH(cipherStr)
 	 		IF cipherStr(i:1) IS NOT EQUAL TO SPACE
-				MOVE cipherStr (i:1) to c
-				IF (FUNCTION ORD(c) - numShift) >= FUNCTION ORD("A")
-					MOVE FUNCTION CHAR(FUNCTION ORD(c) - numShift) to deciphered (i:1)
+				MOVE cipherStr (i:1) to chars
+				IF (FUNCTION ORD(chars) - shift) >= FUNCTION ORD("A")
+					MOVE FUNCTION CHAR(FUNCTION ORD(chars) - shift) 
+                    to deciphered (i:1)
 				ELSE
 					MOVE FUNCTION CHAR(FUNCTION ORD("Z") 
-					- ((numShift - 1) - (FUNCTION ORD(c) - FUNCTION ORD("A")))) to deciphered (
+					- ((shift - 1) - (FUNCTION ORD(chars) - 
+                    FUNCTION ORD("A")))) to deciphered (i:1)
 				END-IF
 			END-IF
 		END-PERFORM
