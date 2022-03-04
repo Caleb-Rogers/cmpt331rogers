@@ -1,15 +1,19 @@
 Sub Encrypt(toCipher As String, shift As Integer)
   Dim temp As Integer
-  For i As Integer = 0 To Len(toCipher) 
+  ' For Loop characters
+  For i As Integer = 0 To Len(toCipher)
+    ' Similar to switch statement
     Select Case As Const toCipher[i] 
+      ' Account for upper case
       Case 65 To 90    
         temp = toCipher[i] + shift
         If temp > 90 Then temp -= 26
-        toCipher[i] = temp
+          toCipher[i] = temp
+      ' Account for lower case
       Case 97 To 122
         temp = toCipher[i] + shift
         If temp > 122 Then temp -= 26
-        toCipher[i] = temp
+          toCipher[i] = temp
     End Select
   Next
 End Sub
@@ -17,16 +21,20 @@ End Sub
 
 Sub Decrypt(ciphered As String, shift As Integer)
   Dim temp As Integer
-  For i As Integer = 0 To Len(ciphered) 
-    Select Case As Const ciphered[i] 
+  ' For Loop characters
+  For i As Integer = 0 To Len(ciphered)
+    ' For Loop characters
+    Select Case As Const ciphered[i]
+    ' Account for upper case
       Case 65 To 90    
         temp = ciphered[i] - shift
         If temp < 65 Then temp += 26
-        ciphered[i] = temp
+          ciphered[i] = temp
+      ' Account for lower case
       Case 97 To 122
         temp = ciphered[i] - shift
         If temp < 97 Then temp += 26
-        ciphered[i] = temp
+          ciphered[i] = temp
     End Select
   Next
 End Sub
