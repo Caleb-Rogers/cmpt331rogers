@@ -20,22 +20,22 @@ Sub Decrypt(ciphered As String, shift As Integer)
   For i As Integer = 0 To Len(ciphered) 
     Select Case As Const ciphered[i] 
       Case 65 To 90    
-        temp = ciphered[i] + shift
-        If temp > 90 Then temp -= 26
+        temp = ciphered[i] - shift
+        If temp < 65 Then temp += 26
         ciphered[i] = temp
       Case 97 To 122
-        temp = ciphered[i] + shift
-        If temp > 122 Then temp -= 26
+        temp = ciphered[i] - shift
+        If temp < 97 Then temp += 26
         ciphered[i] = temp
     End Select
   Next
 End Sub
 
 
-Sub Solve(cipherStr As String)
-    For i As Integer = 1 To 26
-        encrypt(cipherStr, i)
-        Print "Ceasar " ; i ; ": " ; cipherStr
+Sub Solve(cipherStr As String, shift As Integer)
+    For j As Integer = 1 To 26
+        encrypt(cipherStr, shift)
+        Print "Ceasar " ; j ; ": " ; cipherStr
     Next
 End Sub
 
@@ -57,6 +57,6 @@ Decrypt cipherStr, shift
 Print "Decrypted Cipher Value: "; cipherStr
   
 ' Call Caesar Cipher Solve Method
-Solve "DUDE"
+Solve "DUDE", shift
 
 Sleep
