@@ -40,7 +40,7 @@ Sub Solve(cipherStr As String)
 End Sub
 
 
-'' Basically Main ''
+' Basically Main '
 Cls
 ' Initialization
 Dim cipherStr As String = "Dude Wheres My Car"

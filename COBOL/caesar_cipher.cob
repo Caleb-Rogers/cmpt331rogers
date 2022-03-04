@@ -64,6 +64,8 @@ Encrypt.
 
 Decrypt.
     MOVE Function Upper-case(cipherStr) to cipherStr
+    ADD 26 TO shift GIVING negativeShift
+    SUBTRACT negativeShift FROM shift GIVING shift
 
     IF shift >= 26
        MOVE FUNCTION MOD(shift, 26) to shift
