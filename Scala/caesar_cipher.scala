@@ -15,7 +15,8 @@ object CaesarCipher {
 
 
     def decrypt(ciphered: String, shift: Int): String = {
-        return encrypt(ciphered, (shift * -1))
+        var negativeShift: Int = (26 - shift)
+        return encrypt(ciphered, negativeShift)
     }
 
 
@@ -34,11 +35,11 @@ object CaesarCipher {
         println("Welcome to Caesar Ciphers with Scala!")
         
         // Call Caesar Cipher Encryption Method
-        var ciphered = encrypt(cipherStr, 10)
+        var ciphered = encrypt(cipherStr, shift)
         println("Encrypted Cipher Value: " + ciphered)
   
         // Call Caesar Cipher Decryption Method
-        var deciphered = decrypt(ciphered, 10)
+        var deciphered = decrypt(ciphered, shift)
         println("Decrypted Cipher Value: " + deciphered)
       
         // Call Caesar Cipher Solve Method
