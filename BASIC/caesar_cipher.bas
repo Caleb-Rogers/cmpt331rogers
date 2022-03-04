@@ -23,7 +23,6 @@ Sub Decrypt(ciphered As String, shift As Integer)
   Dim temp As Integer
   ' For Loop characters
   For i As Integer = 0 To Len(ciphered)
-    ' For Loop characters
     Select Case As Const ciphered[i]
     ' Account for upper case
       Case 65 To 90    

@@ -1,15 +1,18 @@
 program CaesarCipher(output);
-
+  // Global Declarations
   var cipherStr: String;
   var shift : Integer;
 
 function encrypt(toCipher: String; shift: Integer): String;
+  // Local Declaration
   var
     i: Integer;
   begin
     for i := 1 to length(toCipher) do
       case toCipher[i] of
+        // Account for uppercase letters
         'A'..'Z': toCipher[i] := chr(ord('A') + (ord(toCipher[i]) - ord('A') + shift) mod 26);
+        // Account for lowercase letters
         'a'..'z': toCipher[i] := chr(ord('a') + (ord(toCipher[i]) - ord('a') + shift) mod 26);
       end;
     encrypt := toCipher;
@@ -23,6 +26,7 @@ function decrypt(ciphered: String; shift: Integer): String;
 
 
 procedure solve(cipher: String; shift: Integer);
+  // Local Declaration
   var
     i: Integer;
   begin
