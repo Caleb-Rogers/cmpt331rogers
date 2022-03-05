@@ -23,7 +23,7 @@ contains
  
 subroutine encrypt(toCipher, shift)
   implicit none
-  character(*), intent(inout) :: toCipher
+  character(*) :: toCipher
   integer :: shift
   integer :: i
  
@@ -42,7 +42,7 @@ end subroutine
  
 subroutine decrypt(ciphered, shift)
   implicit none
-  character(*), intent(inout) :: ciphered
+  character(*) :: ciphered
   integer :: shift
   integer :: reverse
   
@@ -60,6 +60,7 @@ subroutine solve(cipher, loop)
   integer :: i
   
   do i = 0, loop
+    ! Breaks without reassign
     newCiphered = cipher
     call encrypt(newCiphered, i)
     write(*, *) "Caesar ", i, ": ", newCiphered
