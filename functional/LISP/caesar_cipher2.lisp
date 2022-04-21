@@ -18,24 +18,21 @@
     do (format t "Caesar ~D: ~a~%" i (encrypt cipher i))))
 
 
-;; Basically Main
-; Initialization
-(let ((cipherStr "Dude Wheres My Car"))
-    (string-upcase cipherStr))
-(let (shift 4))
+;; Main Function
+(defun main()
+    ; Initialization
+    (setq cipherStr "Dude Wheres My Car")
+    (setq shift 4)
 
-(let ((str "Hello, world!"))
-  (string-upcase str))
+    (print ("Welcome to Caesar Ciphers with LISP!"))
 
-(print ("Welcome to Caesar Ciphers with LISP!"))
+    ; Call Caesar Cipher Encryption Method
+    (setq ciphered (encrypt cipherStr shift))
+    (format t "Encrypted Cipher Value: ~a ~%" ciphered)
 
-; Call Caesar Cipher Encryption Method
-(let (ciphered (encrypt cipherStr shift)))
-(format t "Encrypted Cipher Value: ~a ~%" ciphered)
-
-; Call Caesar Cipher Decryption Method
-(let (deciphered (decrypt ciphered shift)))
-(format t "Encrypted Cipher Value: ~a ~%" deciphered)
-	
-; Call Caesar Cipher Solve Method
-(solve "DUDE" 26)
+    ; Call Caesar Cipher Decryption Method
+    (setq deciphered (encrypt ciphered shift))
+    (format t "Encrypted Cipher Value: ~a ~%" deciphered)
+        
+    ; Call Caesar Cipher Solve Method
+    (solve "DUDE" 26))
