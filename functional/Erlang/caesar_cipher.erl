@@ -3,23 +3,25 @@
 
 
 shifter(Char, Shift) when (Char /= " ") ->
+                    % if a char, then shift
 	                Ascii = fun([Ch]) -> Ch end,
-	                (((Ascii(Char) - 65 + Shift) rem (26) + 26) rem 26) + 65;
+	                (((Ascii(Char) - 65 + Shift) rem (26) + 26) rem 26) + 65.
 shifter(Char, _Shift) ->
-                    % whitespace
+                    % otherwise, whitespace
                     Char.
 
 
 encrypt(ToCipher, Shift) ->
+    % functionally map each character to shifter method
     Ciphered = lists:map(fun(Char) -> shifter([string:to_upper(Char)], Shift) end, ToCipher),
-	io:format("Cipher Value: ~s~n", [Ciphered]).
+    Ciphered.
 
 decrypt(Ciphered, Shift) ->
-    encrypt(Ciphered, (Shift * -1)).
+    Ciphered = encrypt(Ciphered, -Shift).
 
 solve(Cipher, 0) ->
     io:format("~s~n", [string:concat("Caesar 0: ",string:to_upper(Cipher))]);
-solve(Cipher, _Shift) when Shift > 0 -> 
+solve(Cipher, Shift) when Shift > 0 -> 
 	io:format("~s~n", [lists:concat(["Caesar ", Shift, ": ", encrypt(Cipher, Shift)])]),
 	solve(Cipher, (Shift-1)).
 

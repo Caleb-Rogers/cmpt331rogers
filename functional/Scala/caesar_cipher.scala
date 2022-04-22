@@ -20,7 +20,7 @@ object CaesarCipher {
         else {
             if(!(char.isWhitespace)) {
                 print((((char.toInt + shift - 97) % 26).toInt + 97).toChar.toString())
-                this.cipherStr += (((char.toInt + shift - 65) % 26).toInt + 65).toChar.toString()
+                this.cipherStr += ((((char.toInt + shift - 97) % 26).toInt + 97).toChar.toString())
             }
             else {
                 print(" ")
@@ -32,17 +32,20 @@ object CaesarCipher {
 
     def encrypt(toCipher: String, shift: Int) = {
         var shiftAmt: Int = shift % 26
+        // functionally map each character to shifter method
         toCipher.map(char => shifter(char, shiftAmt))
 	}
 
 
     def decrypt(shift: Int) = {
-		encrypt(this.cipherStr, (-shift))
+		encrypt(this.cipherStr, (26 - shift))
 	}
 
 
     def solve(cipher: String, shift: Int): Unit = {
-        println("Caesar " + shift + ": " + encrypt(cipher, shift))
+        print("Caesar " + shift + ": ")
+        encrypt(cipher, shift)
+        println("")
         if(shift > 0) {
             solve(cipher, shift-1)
         }
