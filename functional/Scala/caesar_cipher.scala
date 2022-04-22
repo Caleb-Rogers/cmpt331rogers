@@ -1,36 +1,31 @@
 object CaesarCipher {
 
-    def shifter(char: Char, shift: Int) = {
-        if (char.toInt + shift <= 90) {
-            print((char.toInt + shift).toChar)
-        }
-        else if (char.toInt - shift >= 65) {
-            print((char.toInt - shift).toChar);
-        }
+    def shifter(base: String, char: Char, shift: Int) = {
+        (base.toInt + ((char.toInt − base.toInt + offset) % 26)).toChar
     }
 
 
-    def encrypt(toCipher: String, shift: Int): String = {
-		var input:String = toCipher.toUpperCase()
-	    var shiftAmt:Int = shift % 26
-	    input.map(x => shifter(x, shiftAmt))
+    def encrypt(toCipher: String, shift: Int): toCipher.map = {
+        // Uppercase
+		case char if char isUpper => shifter(’A’, char, shift) 
+        // Lowercase
+		case char if char isLower => shifter(’a’, char, shift)
+        // Other (like space)
+		case char => char
 	}
 
 
-    def decrypt(ciphered: String, shift: Int): String = {
-		var input:String = ciphered.toUpperCase()
-	    var shiftAmt:Int = shift % 26
-	    input.map(x => shifter(x, shiftAmt))
-	}
+    def decrypt(ciphered: String, shift: Int): encrypt(ciphered, -shift)
 
 
-    def solve(cipherStr: String, loop: Int): Unit = {
-        /*
-        for(i <- 0 to loop) {
-            println("Caesar " + i + ": " + encrypt(cipherStr, i))
-        }
-        */
-    }
+    def solve(cipher: String, shift: Int) : Unit = {
+	    if (maxShift > 0) {
+		    println("Caesar " + shift + ": " + encrypt(cipher, shift)) solve(cipher, (shift-1))
+	    }
+        else{
+		    println("Caesar 0: " + cipher)
+	    }
+
     
     def main(args: Array[String]): Unit = {
         
@@ -45,10 +40,10 @@ object CaesarCipher {
         println("Encrypted Cipher Value: " + ciphered)
   
         // Call Caesar Cipher Decryption Method
-        //var deciphered = decrypt(ciphered, shift)
-        //println("Decrypted Cipher Value: " + deciphered)
+        var deciphered = decrypt(ciphered, shift)
+        println("Decrypted Cipher Value: " + deciphered)
       
         // Call Caesar Cipher Solve Method
-        //solve("DUDE", 26)
+        solve("DUDE", 26)
     }
 }
