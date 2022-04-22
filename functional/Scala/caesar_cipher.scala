@@ -1,11 +1,6 @@
 object CaesarCipher {
 
     var cipherStr = ""
-
-    def encrypt(toCipher: String, shift: Int) = {
-        var shiftAmt: Int = shift % 26
-        toCipher.map(char => shifter(char, shiftAmt))
-	}
     
     def shifter(char: Char, shift: Int) = {
         // Account for uppercase letters
@@ -33,6 +28,12 @@ object CaesarCipher {
             }
         }
     }
+
+
+    def encrypt(toCipher: String, shift: Int) = {
+        var shiftAmt: Int = shift % 26
+        toCipher.map(char => shifter(char, shiftAmt))
+	}
 
 
     def decrypt(shift: Int) = {

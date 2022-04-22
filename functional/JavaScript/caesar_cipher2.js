@@ -1,30 +1,18 @@
+function shifter(char, shift) {
+    if (char == char.toUpperCase()) {
+        console.log(String.fromCharCode(((char.fromCharCode() + shift - 65) % 26) + 65));
+        ciphered += String.fromCharCode(((char.fromCharCode() + shift - 65) % 26) + 65);
+    }
+    else {
+        console.log(String.fromCharCode(((char.fromCharCode() + shift - 65) % 26) + 65));
+        ciphered += String.fromCharCode(((char.fromCharCode() + shift - 97) % 26) + 97);
+    }
+}
+
+
 function encrypt(toCipher, shift) {
-
-    // recursive call
-    if (shift < 0) {
-        return encrypt(toCipher, (shift+26))
-    }
-
-    var ciphered = "";
-    for (var i=0; i<toCipher.length; i++) {
-        var char = toCipher[i];
-
-        // skip if not a letter
-        if (char.match(/[a-z]/i)) {
-            var ascii = toCipher.charCodeAt(i);
-            // shift if Uppercase
-            if ((ascii >= 65) && (ascii <= 90)) {
-                char = String.fromCharCode(((ascii - 65 + shift) % 26) + 65);
-            }
-            // shift if Lowercase
-            else if ((ascii >= 97) && (ascii <= 122)) {
-                char = String.fromCharCode(((ascii - 97 + shift) % 26) + 97);
-            }
-        }
-        ciphered += char;
-    }
-
-    return ciphered;
+    let shiftAmt = shift % 26;
+    toCipher.map(char => shifter(char, shiftAmt));
 }
 
 
@@ -40,8 +28,9 @@ function solve(cipher, shift) {
 
 /** Main **/
 // Initialization
-cipherStr = "Dude Wheres My Car";
-shift = 4;
+var cipherStr = "Dude Wheres My Car";
+var shift = 4;
+var ciphered = "";
 
 console.log("Welcome to Caesar Ciphers with JavaScript!");
 
@@ -49,7 +38,7 @@ console.log("Welcome to Caesar Ciphers with JavaScript!");
 encrypt(cipherStr, shift);
 
 // Call Caesar Cipher Decryption Method
-decrypt(cipherStr, shift);
+decrypt(ciphered, shift);
 
 // Call Caesar Cipher Solve Method
-solve("DUDE", 26);
+//solve("DUDE", 26);
