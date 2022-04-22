@@ -1,29 +1,17 @@
 object CaesarCipher {
     def encrypt(toCipher: String, shift: Int) = {
+        var cipher: String = toCipher.toUpperCase()
         var shiftAmt: Int = shift % 26
-        toCipher.map(char => shifter(char, shiftAmt))
+        cipher.map(char => shifter(char, shiftAmt))
 	}
     
     def shifter(char: Char, shift: Int) = {
-        // Account for uppercase letters
-        if (char >= 'A' && char <= 'Z') {
-            // If no whitespace, shift character
-            if(!(char.isWhitespace)) {
-                print((((char.toInt + shift - 65) % 26).toInt + 65).toChar.toString());
-            }
-            // Else whitespace, append space 
-            else {
-                print(" ")
-            }
-        }
-        // Account for lowercase letters
+        if(char.toInt + shift <= 90){
+            print((char.toInt + shift).toChar);
+        } 
         else {
-            if(!(char.isWhitespace)) {
-                print((((char.toInt + shift - 97) % 26).toInt + 97).toChar.toString());
-            }
-            else {
-                print(" ")
-            }
+            var overflow :Int = 64 + (char.toInt + shift - 90)
+            print(overflow.toChar)
         }
     }
 
