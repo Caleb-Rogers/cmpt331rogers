@@ -1,18 +1,19 @@
 function shifter(char, shift) {
     if (char == char.toUpperCase()) {
-        console.log(String.fromCharCode(((char.fromCharCode() + shift - 65) % 26) + 65));
-        ciphered += String.fromCharCode(((char.fromCharCode() + shift - 65) % 26) + 65);
+        console.log(String.fromCharCode(((char.charCodeAt(0) + shift) - 65) % 26) + 65);
+        ciphered += String.fromCharCode(((char.charCodeAt(0) + shift - 65) % 26) + 65);
     }
     else {
-        console.log(String.fromCharCode(((char.fromCharCode() + shift - 65) % 26) + 65));
-        ciphered += String.fromCharCode(((char.fromCharCode() + shift - 97) % 26) + 97);
+        console.log(String.fromCharCode(((char.charCodeAt(0) + shift - 65) % 26) + 65));
+        ciphered += String.fromCharCode(((char.charCodeAt(0) + shift - 97) % 26) + 97);
     }
 }
 
 
 function encrypt(toCipher, shift) {
+    const toCipher_arr = toCipher.split('');
     let shiftAmt = shift % 26;
-    toCipher.map(char => shifter(char, shiftAmt));
+    const ciphered_arr = toCipher_arr.map(char => shifter(char, shiftAmt));
 }
 
 
