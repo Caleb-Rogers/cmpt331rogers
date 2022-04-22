@@ -5,7 +5,7 @@ function shifter(char, shift) {
       ciphered_char = String.fromCharCode(((char.charCodeAt(0) - 65 + shift) % 26) + 65);
     }
     else {
-      ciphered_char = String.fromCharCode(((char.charCodeAt(0) - 65 + shift) % 26) + 65);
+      ciphered_char = String.fromCharCode(((char.charCodeAt(0) + shift - 97) % 26) + 97);
     }
   }
   return ciphered_char;
@@ -24,7 +24,8 @@ function encrypt(toCipher, shift) {
 
 
 function decrypt(ciphered, shift) {
-    encrypt(ciphered, -shift);
+    var negativeShift = (26 - shift)
+    return encrypt(ciphered, negativeShift)
 }
 
 
