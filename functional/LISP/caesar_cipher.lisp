@@ -1,9 +1,10 @@
-(defun offset(chars shift)
-	(if (= (char-code chars) 32) (code-char 32)
-	  (code-char (+ (mod (+ (- (char-code chars) 65) shift) 26) 65))))
+(defun shifter(ch shift)
+	(if (= (char-code ch) 32) (code-char 32)
+	    (code-char (+ (mod (+ (- (char-code ch) 65) shift) 26) 65))))
 
 (defun encrypt (toCipher shift)
-  (map 'string #'(lambda (ch) (offset ch shift)) (string-upcase toCipher)))
+  ; use map to functionally shift each character (uppercase first to make easy)
+  (map 'string #'(lambda (char) (shifter char shift)) (string-upcase toCipher)))
 
 (defun decrypt (ciphered shift) (encrypt ciphered (- shift)))
 
