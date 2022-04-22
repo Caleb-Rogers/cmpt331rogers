@@ -1,38 +1,38 @@
-;; Create a function to do individual character shifting
-(defun offset (ch key)
-  ;; Here comes the "Lots of Irritating Superfluous Parentheses " 
-  (let* ((c  (char-code  ch)) (la (char-code #\a)) (ua (char-code #\A)) 
-         (base (cond ((<= la c (char-code #\z)) la) 
-                     ((<= ua c (char-code #\Z)) ua) 
-                     (nil))))
-    (if base (code-char (+ (mod (+ (- c base) key) 26) base)) ch)))
- 
-(defun encrypt (str key)
-  ;; map is very useful and is used in a few of these languages actually
-  ;; For each char in string call offset to shift the character 
-  (map 'string #'(lambda (c) (offset c key)) str))
-
-;; lazy decryption...or efficient?
-(defun decrypt (str key) (encrypt str (- key)))
-
-;; I will admit this is a very concise version of the solve function
-;; thanks to LISP....not worth it though
-(defun solve (str num) 
-  ;; loop through the required number of test cases, encrypt as we go 
-  (loop for n from 0 to num
-    do (format t "Caesar ~D: ~a~%" n (encrypt str n))))
+(defun shifter(char shift)
+  (if (= (char-code char) 32) (code-char 32)
+    (code-char (+ (mod (+ (- (char-code char) 65) shift) 26) 65))))
 
 
-;; Define the String to be encrypte and the base key
-(let* ((og "HAL")
-       (key 6)
-       (encrypted_text (encrypt og key))
-       (decrypted_text (decrypt encrypted_text key)))
-       ;; Just Call Solve and let it do its thing  
-       (solve og 26)
+(defun encrypt (toCipher shift)
+  ;(map 'string #'(lambda (char) (shifter char shift)) toCipher))
 
-  (format t "Original Text: ~a ~%" og)
-  ;; ENCRYPT
-  (format t "Encrypted: ~a ~%" encrypted_text)
-  ;; DECRYPT
-  (format t "Decrypted: ~a ~%" decrypted_text))
+)
+
+
+(defun decrypt (ciphered shift) (encrypt ciphered (- shift)))
+
+
+(defun solve (cipher shift) 
+  (loop for i from 0 to shift
+    do (format t "Caesar ~D: ~a~%" i (encrypt cipher i))))
+
+
+;; Main Function
+(defun main()
+    ; Initialization
+    (setq cipherStr "Dude Wheres My Car")
+    (setq shift 4)
+
+    (print ("Welcome to Caesar Ciphers with LISP!"))
+
+    ; Call Caesar Cipher Encryption Method
+    (setq ciphered (encrypt cipherStr shift))
+    ;(format t "Encrypted Cipher Value: ~a ~%" ciphered)
+    (format t "Encrypted Cipher Value: ~a" ciphered)
+
+    ; Call Caesar Cipher Decryption Method
+    ;;(setq deciphered (encrypt ciphered shift))
+    ;;(format t "Encrypted Cipher Value: ~a ~%" deciphered)
+        
+    ; Call Caesar Cipher Solve Method
+    ;;(solve "DUDE" 26))
