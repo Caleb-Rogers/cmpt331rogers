@@ -1,26 +1,25 @@
 -module(prog).
--export([encrypt/2, decrypt/2, solve/2, main/0]).
+-export([shifter/2, encrypt/2, decrypt/2, solve/2, main/0]).
 
 
-shifter(Char,Shift)
-    % Uppercase
-    when (Char >= $A) and (Char =< $Z)
-    % Lowercase
-    or (Char >= $a) and (Char =< $z) ->
-        Offset = $A + Char band 32,
-        Offset + ((Char - Offset) + Shift) rem 26;
-        % recursive call
-        shifter(Char, _Shift) -> Char.
+shifter(Char, Shift) when (Char /= " ") ->
+	                Ascii = fun([Ch]) -> Ch end,
+	                (((Ascii(Char) - 65 + Shift) rem (26) + 26) rem 26) + 65;
+shifter(Char, _Shift) ->
+                    % whitespace
+                    Char.
+
 
 encrypt(ToCipher, Shift) ->
-    lists:map(fun(Char) -> shifter(Char, Shift) end, ToCipher).
+    Ciphered = lists:map(fun(Char) -> shifter([string:to_upper(Char)], Shift) end, ToCipher),
+	io:format("Cipher Value: ~s~n", [Ciphered]).
 
 decrypt(Ciphered, Shift) ->
-    encrypt(Ciphered, -Shift).
+    encrypt(Ciphered, (Shift * -1)).
 
 solve(Cipher, 0) ->
     io:format("~s~n", [string:concat("Caesar 0: ",string:to_upper(Cipher))]);
-solve(Cipher, Shift) when Shift > 0 -> 
+solve(Cipher, _Shift) when Shift > 0 -> 
 	io:format("~s~n", [lists:concat(["Caesar ", Shift, ": ", encrypt(Cipher, Shift)])]),
 	solve(Cipher, (Shift-1)).
 
