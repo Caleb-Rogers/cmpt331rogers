@@ -33,7 +33,7 @@ function decrypt(ciphered, shift) {
 
 function solve(cipher, shift) {
   console.log("Caesar " + shift + ": " + encrypt(cipher, shift));
-  if(shift > 0) {
+  if (shift > 0) {
     solve(cipher, shift-1)
   }
 }
