@@ -1,5 +1,5 @@
 <?PastPHP
-<?module(QuickSort)
+<?module(InsertionSort)
 <?functions([insertionSort/2])
 
 function insertionSort($listToSort: Arr, $n: Int): Arr
