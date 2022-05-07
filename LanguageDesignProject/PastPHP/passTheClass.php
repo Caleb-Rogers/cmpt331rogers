@@ -1,6 +1,6 @@
 <?PastPHP
 <?module(passTheClass)
-<?functions([avgGrades/1])
+<?functions([passFail/1])
 
 method avgGrades($gradeList: Arr): Float
     <var
@@ -13,7 +13,7 @@ method avgGrades($gradeList: Arr): Float
             $temp += $gradeList[i];
             $i++;
         done
-        $average = $temp / $gradeList.length;
+        $average := $temp / $gradeList.length;
     end>
     <return $average>
 
@@ -46,12 +46,13 @@ function passFail($gradeList: Arr): Bool
         $passed := passFail($grades);
         if ($passed) do
             writeln("After evaluation, your grade indicates that you have");
-            writepastln(" PASSED this class! Congrats!");
+            write(" PASSED this class! Congrats!");
         done
         else do
             writeln("After evaluation, your grade indicates that you have");
-            writepastln(" FAILED this class...");
+            write(" FAILED this class...");
         done
+    end>
 future>
 ?>
 

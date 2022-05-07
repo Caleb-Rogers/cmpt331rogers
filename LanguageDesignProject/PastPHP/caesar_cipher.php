@@ -34,9 +34,9 @@ function decrypt($ciphered: Str): Str
     >
     <begin
         // Initialization
-        $cipherStr := "If my calculations are correct, \n
-        when this baby hits 88 miles per hour, \n
-        you're gonna see some serious s***";
+        $cipherStr := "If my calculations are correct \n
+        when this baby hits eighty eight miles per hour \n
+        youre gonna see some serious shiii";
         $shift := 4;
 
         writeLn("Welcome to a Caesar Cipher in PastPHP!");
@@ -51,3 +51,7 @@ function decrypt($ciphered: Str): Str
     end>
 future>
 ?>
+
+
+
+
